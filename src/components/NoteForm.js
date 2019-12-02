@@ -35,10 +35,11 @@ class NoteForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} style={{display: 'flex', justifyItems:'center' ,flexDirection:'column'}}>
         <h3>Add a Note</h3>
         Title: <br />
         <input
+          style={{width:'300px',justifyItems:'center' ,flexDirection:'column'}}
           type="text"
           name="title"
           onChange={this.handleTitleChange}
@@ -47,6 +48,7 @@ class NoteForm extends React.Component {
         <br />
         Content: <br />
         <textarea
+          style={{width:'300px', height:'250px',justifyItems:'center' ,flexDirection:'column'}}
           name="content"
           cols="30"
           rows="5"
@@ -54,7 +56,18 @@ class NoteForm extends React.Component {
           value={this.state.content}
         />
         <br />
-        <button type="submit" style={{ color: "#33B0FF" }}>
+        <button type="submit" style={
+          { backgroundColor: "#33B0FF",
+           border: 'none',
+           color: 'white',
+           padding: '15px 32px',
+           textAlign: 'center',
+           textDecoration: 'none',
+           display: 'inline-block',
+           fontSize: '16px',
+           margin: '4px 2px',
+           cursor: 'pointer'}
+        }>
           <Icon type="arrow-down" />
           Add Note
         </button>

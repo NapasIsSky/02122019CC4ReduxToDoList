@@ -33,8 +33,11 @@
 import {combineReducers} from 'redux'
 import noteReducer from './noteReducers'
 import visibilityReducer from './visibilityReducers'
+import tagReducer from './tagReducers'
+
 
 export default combineReducers({
   notes: noteReducer,
-  visibility: visibilityReducer
+  visibility: visibilityReducer,
+  tag: tagReducer
 })

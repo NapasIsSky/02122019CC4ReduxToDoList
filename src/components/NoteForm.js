@@ -9,7 +9,8 @@ class NoteForm extends React.Component {
 
     this.state = {
       title: "",
-      content: ""
+      content: "",
+      tag:'TAG_GENERAL'
     };
   }
 
@@ -21,16 +22,27 @@ class NoteForm extends React.Component {
     this.setState({ content: e.target.value });
   };
 
+  handleTagChange = e =>{
+    this.setState({ tag: e.target.value});
+  }
+
   handleSubmit = e => {
     e.preventDefault();
 
     let title = this.state.title;
     let content = this.state.content;
-
+    let tag = this.state.tag;
+    
     if(!title||!content){
       return
     }
-    this.props.addNote(title, content);
+    this.props.addNote(title, content,tag);
+    this.setState({
+      title: (e.target=''),
+      content: (e.target=''),
+      tag: (e.target='')
+
+    })
   };
 
   render() {
@@ -56,6 +68,15 @@ class NoteForm extends React.Component {
           value={this.state.content}
         />
         <br />
+        Due Date:<br/>
+        <input/>
+        <br />
+        <select onChange={this.handleTagChange} value={this.state.tag}>
+          <option value="TAG_GENERAL">General</option>
+          <option value="TAG_IMPORTANT">Important</option>
+          <option value="TAG_OTHER">Other</option>
+        </select> 
+        <br />
         <button type="submit" style={
           { backgroundColor: "#33B0FF",
            border: 'none',
@@ -67,7 +88,9 @@ class NoteForm extends React.Component {
            fontSize: '16px',
            margin: '4px 2px',
            cursor: 'pointer'}
-        }>
+        }
+        
+        >
           <Icon type="arrow-down" />
           Add Note
         </button>

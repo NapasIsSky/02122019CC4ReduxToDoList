@@ -10,7 +10,9 @@ export default function noteReducer(notes = [], action){
                 id: action.id,
                 title: action.title,
                 content: action.content,
-                status: action.status
+                dateTime: action.dateTime,
+                status: action.status,
+                tag: action.tag
             }
             ]
         case REMOVE_NOTE:

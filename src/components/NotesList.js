@@ -1,15 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeNote, showInactive, showActive } from "../redux/actions/actions";
+import { removeNote, showInactive, showActive, showTagGeneral, showTagImportant, showTagOther } from "../redux/actions/actions";
 
 class NotesList extends React.Component {
   constructor(props) {
     super(props);
+
+    // this.state = {
+    //   general:this.props.showTagGeneral()
+    // };
   }
+
+  handleShowTag = e =>{
+    // console.log(e.target.value)
+    if (e.target.value === "TAG_GENERAL") {
+      this.props.showTagGeneral()
+    }else if(e.target.value === "TAG_IMPORTANT") {
+      this.props.showTagImportant()
+    }else{
+      this.props.showTagOther()
+    }
+    // this.setState({dummy: e})
+    // this.props.notes.tag.filter(e.target.value)
+  } 
 
   render() {
     let visibility = this.props.visibility;
-    let notes = this.props.notes.filter(note => note.status === visibility);
+    let tag = this.props.tag;
+    let notes = this.props.notes.filter(note => note.status === visibility && note.tag === tag);
+    console.log(tag)
+
     return (
       <>
         <h3
@@ -22,6 +42,12 @@ class NotesList extends React.Component {
         >
           Notes
         </h3>
+        <br />
+        <select defaultValue="TAG_OTHER" onChange={this.handleShowTag}>
+          <option value="TAG_GENERAL">General</option>
+          <option value="TAG_IMPORTANT">Important</option>
+          <option value="TAG_OTHER">Other</option>
+        </select> 
         <br />
         <button
           style={{
@@ -81,6 +107,10 @@ class NotesList extends React.Component {
               </button>
               <br />
               <span>{note.content}</span>
+              <br />
+              <span>{note.dateTime}</span>
+              <br />
+              <span>{note.tag}</span>
             </li>
           ))}
         </ul>
@@ -92,14 +122,18 @@ class NotesList extends React.Component {
 const mapStateToProps = state => {
   return {
     notes: state.notes,
-    visibility: state.visibility
+    visibility: state.visibility,
+    tag: state.tag
   };
 };
 
 const mapDispatchToProps = {
   removeNote: removeNote,
   showActive: showActive,
-  showInactive: showInactive
+  showInactive: showInactive,
+  showTagGeneral: showTagGeneral,
+  showTagImportant: showTagImportant,
+  showTagOther: showTagOther
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesList);
